@@ -52,6 +52,8 @@ com isso o cliente deverá esperar 36 meses sendo esses o tempo de carência par
 
 <img src="img/modeloLogico.png" />
 
+### SQL
+<a href="codeSql.sql" >go to code</a>
 
 ### Tecnologias utilizadas
 
