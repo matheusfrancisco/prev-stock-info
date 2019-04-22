@@ -27,18 +27,12 @@ public class UsersController {
 	 }
 	 
 	public void remover(Users _user) {
-		//em.persist(_user);
         em.getTransaction().begin();
-        //em.persist(_user);
-		//Query q = em.createQuery("DELETE FROM Users WHERE id = "+_user.getUserid());
-		//q.executeUpdate();
     	System.out.println(_user.getUserid());
         Users u1 = em.find(Users.class,_user.getUserid());
         System.out.println(u1);
-		//Users uObj = em.find(Users.class, 101);
 		em.remove(u1);
         em.getTransaction().commit();
-		//factory.close();
 		
 	}
 	
@@ -53,15 +47,59 @@ public class UsersController {
 	
 	
 	public float getBalance(Users _user) {
-		return _user.getBalance();
+		Users u1 = em.find(Users.class, _user.getUserid());
+		return u1.getBalance();
 	}
 	
 	public void updateBalance(Users _user, float newBalance) {
 		em.getTransaction().begin();
 		Users u1 = em.find(Users.class, _user.getUserid());
+
 		u1.setBalance(newBalance);
 		em.merge(u1);
 		em.getTransaction().commit();
 	}
+	
+	public void getWithdraw(Users _user) {
+		//AccountController trans = new AccountController();
+		PlanController planController = new PlanController();
+        //Plans planUser = em.find(Plans.class, _user.getUserid());
+        if(this.validacaoWithdraw(planController.getParcelas(_user)) == 0)
+        {
+    		System.out.println("Voce nao pode sacar");
+    		System.out.println("Pq falta parcelas");
+    		
+
+        }else
+        {
+        	
+        	this.formSendEmail(_user);
+        	
+        }
+        
+	}
+	
+   public int validacaoWithdraw(int value) {
+	   if(value > 0) {
+		   return 0;
+	   }else
+	   {
+		   return 1;
+	   }
+	   
+   }
+   
+   public void formSendEmail(Users _user) {
+	   System.out.println("Voce vai sacar");
+	   Users u1 = em.find(Users.class, _user.getUserid());
+	   System.out.println(u1.getBalance());
+	   
+	   //update balance withdraw ok
+	   this.updateBalance(u1, 0);
+
+   }
+   
+  
+   
 }
 

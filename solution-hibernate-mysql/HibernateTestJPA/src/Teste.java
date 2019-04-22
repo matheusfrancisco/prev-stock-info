@@ -65,7 +65,7 @@ public class Teste {
 		    user1.setEndereco("Endereço");
 		    user1.setEmail("matheusfrancisco@hotmail.com" );
 		    user1.setCpf("41819714810");
-		    
+		    /*
 		    UsersController con = new UsersController();
 		    con.salvar(user1);
 		    
@@ -84,23 +84,32 @@ public class Teste {
 	        
 	        PlanController pla= new PlanController();
 	        pla.salvar(plan1);
-	        
-	        AccountController account1 = new AccountController();
+	        */
+	       /* AccountController account1 = new AccountController();
 	        account1.setIdAccount(1);
 	        account1.setPayValue(100);
 			account1.setIdPlanAccount(1);
 			account1.setIdUserAccount(1);
+			*/
+			//AccountControllerLogic ac = new AccountControllerLogic();
 			
-			AccountControllerLogic ac = new AccountControllerLogic();
-			
-			ac.salvar(account1);
+			//ac.salvar(account1);
 			
 			//make a payment
 			
-			ac.payment(user1, 100);
+			//ac.payment(user1, 100);
 	        
-	        
+	      //make a withdraw
+		   //UsersController con = new UsersController();
+
+		   // con.updateBalance(user1, 3600);
 		    
+		   //cancel plan
+		   PlanController planCon  = new PlanController();
+		   planCon.cancelPlan(user1);
+		    
+		   
+		   
 	    System.out.println("..............\n");
 
         }
