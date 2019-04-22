@@ -66,10 +66,10 @@ public class Teste {
 		    user1.setEmail("matheusfrancisco@hotmail.com" );
 		    user1.setCpf("41819714810");
 		    
-		    //UsersController con = new UsersController();
-		    //con.salvar(user1);
+		    UsersController con = new UsersController();
+		    con.salvar(user1);
 		    
-		    /*Plans plan1 = new Plans();
+		    Plans plan1 = new Plans();
 		    plan1.setIdUser(1);
 		    plan1.setNumberOfInstallments(36);
 			//DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
@@ -84,7 +84,7 @@ public class Teste {
 	        
 	        PlanController pla= new PlanController();
 	        pla.salvar(plan1);
-	        */
+	        
 	        AccountController account1 = new AccountController();
 	        account1.setIdAccount(1);
 	        account1.setPayValue(100);
@@ -93,7 +93,7 @@ public class Teste {
 			
 			AccountControllerLogic ac = new AccountControllerLogic();
 			
-			//ac.salvar(account1);
+			ac.salvar(account1);
 			
 			//make a payment
 			
