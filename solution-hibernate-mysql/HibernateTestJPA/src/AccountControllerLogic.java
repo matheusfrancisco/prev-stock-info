@@ -69,14 +69,17 @@ public class AccountControllerLogic {
 		//AccountControllerLogic ac = new AccountControllerLogic();
 		PlanController planController = new PlanController();
 		
+		UsersController userController = new UsersController();
+		
+		float valueCurrentBalance = userController.getBalance(_user);
         Plans planUser = em.find(Plans.class, _user.getUserid());
        	
         trans.setIdPlanAccount( planUser.getPlanId());
         trans.setPayValue(value);
         trans.setIdUserAccount(_user.getUserid());
-        
+        float currentValue = valueCurrentBalance + value;
         planController.updateParcelas(planUser, planUser.getRemainingInstallments());
-                
+        userController.updateBalance(_user, currentValue );        
         
         
         this.salvar(trans);
