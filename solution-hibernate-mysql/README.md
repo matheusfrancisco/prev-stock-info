@@ -58,6 +58,8 @@ CREATE TABLE IF NOT EXISTS AccountController(
 
 
 ## Implementação 
+
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="1.0"
 	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -85,6 +87,7 @@ CREATE TABLE IF NOT EXISTS AccountController(
     </persistence-unit>
 </persistence>
 
+```
 
 
 
