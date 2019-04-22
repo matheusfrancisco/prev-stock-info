@@ -66,33 +66,28 @@ public class AccountControllerLogic {
 		String formattedDate = formatter.format(LocalDate.now());
 		
 		AccountController trans = new AccountController();
-		//AccountControllerLogic ac = new AccountControllerLogic();
 		PlanController planController = new PlanController();
-		
 		UsersController userController = new UsersController();
 		
+		
+		Users userTarget = em.find(Users.class, _user.getUserid());
+		
 		float valueCurrentBalance = userController.getBalance(_user);
+		float currentValue = valueCurrentBalance + value;
+
+        userController.updateBalance(userTarget, currentValue );        
+
         Plans planUser = em.find(Plans.class, _user.getUserid());
        	
         trans.setIdPlanAccount( planUser.getPlanId());
         trans.setPayValue(value);
         trans.setIdUserAccount(_user.getUserid());
-        float currentValue = valueCurrentBalance + value;
+        
         planController.updateParcelas(planUser, planUser.getRemainingInstallments());
-        userController.updateBalance(_user, currentValue );        
         
         
         this.salvar(trans);
         
-
-		
-		
-		//trans.setIdPlanAccount(_plan.getPlanId());
-		//trans.setIdUserAccount(_user.getUserid());
-		
-	
-		//gerar um log account
-		//
 	}
 	
 	
