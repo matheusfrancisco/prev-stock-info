@@ -52,8 +52,16 @@ public class UsersController {
 	
 	
 	
-	public void getBalance(Users _user, AccountController _trans) {
-		//retorna o valor 
+	public float getBalance(Users _user) {
+		return _user.getBalance();
+	}
+	
+	public void updateBalance(Users _user, float newBalance) {
+		em.getTransaction().begin();
+		Users u1 = em.find(Users.class, _user.getUserid());
+		u1.setBalance(newBalance);
+		em.merge(u1);
+		em.getTransaction().commit();
 	}
 }
 
