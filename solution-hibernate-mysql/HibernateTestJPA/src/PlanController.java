@@ -47,5 +47,13 @@ public class PlanController {
 		em.getTransaction().commit();
 	}
 	
+	public void updateParcelas(Plans _plan, int number) {
+		em.getTransaction().begin();
+		Plans u1 = em.find(Plans.class, _plan.getPlanId());
+		u1.setRemainingInstallments(number-1);
+		em.merge(u1);
+		em.getTransaction().commit();
+	}
+	
 }
 

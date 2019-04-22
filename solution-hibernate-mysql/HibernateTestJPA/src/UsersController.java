@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -47,5 +50,10 @@ public class UsersController {
 		em.getTransaction().commit();
 	}
 	
+	
+	
+	public void getBalance(Users _user, AccountController _trans) {
+		//retorna o valor 
+	}
 }
 

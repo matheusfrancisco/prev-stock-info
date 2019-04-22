@@ -1,5 +1,6 @@
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +35,7 @@ public class Plans {
     private float paymentAmount;
     
     @Column(name = "payday")
-    private Date payday;
+    private LocalDate payday;
     
     @Column(name= "startDateUser")
     private Date startDateUser;
@@ -94,12 +95,12 @@ public class Plans {
     public void setPaymentAmount(float paymentAmount) {
     	this.paymentAmount = paymentAmount;
     }
-    public Date getPayday() {
+    public LocalDate getPayday() {
     	return payday;
     }
     
-    public void setPayday(Date payday) {
-    	this.payday = payday;
+    public void setPayday(LocalDate localDate) {
+    	this.payday = localDate;
     }
     
     public Date getStartDateUser() {
