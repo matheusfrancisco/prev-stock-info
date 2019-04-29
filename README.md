@@ -58,8 +58,13 @@ com isso o cliente deverá esperar 36 meses sendo esses o tempo de carência par
 ### Tecnologias utilizadas
 #### Implementação Hibernate + Mysql
 
-<a href="https://github.com/matheusfrancisco/prev-stock-info/tree/master/solution-hibernate-mysql">Implementaçã hibernate</a>
+<a href="https://github.com/matheusfrancisco/prev-stock-info/tree/master/solution-hibernate-mysql">Implementação hibernate</a>
 
-#### Implmentação Hibernate + FileMaker
+
 #### Implmentação Nodejs + Mysql
+
+<a href="https://github.com/matheusfrancisco/prev-stock-info/tree/master/solution-1/backend">Implementação nodejs + mysql</a>
+
+
+
 
