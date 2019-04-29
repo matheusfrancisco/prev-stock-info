@@ -87,3 +87,5 @@ class Plans{
     }
 
 }
+
+module.exports = new Plans();
