@@ -24,18 +24,12 @@ public class PlanController {
 	 }
 	 
 	public void remover(Plans _plan) {
-		//em.persist(_user);
         em.getTransaction().begin();
-        //em.persist(_user);
-		//Query q = em.createQuery("DELETE FROM Users WHERE id = "+_user.getUserid());
-		//q.executeUpdate();
+
     	System.out.println(_plan.getPlanId());
         Plans p1 = em.find(Plans.class,_plan.getPlanId());
-        System.out.println(p1);
-		//Users uObj = em.find(Users.class, 101);
 		em.remove(p1);
         em.getTransaction().commit();
-		//factory.close();
 		
 	}
 	
@@ -46,6 +40,31 @@ public class PlanController {
 		em.merge(u1);
 		em.getTransaction().commit();
 	}
+	
+	public void updateParcelas(Plans _plan, int number) {
+		em.getTransaction().begin();
+		Plans u1 = em.find(Plans.class, _plan.getPlanId());
+		u1.setRemainingInstallments(number-1);
+		em.merge(u1);
+		em.getTransaction().commit();
+	}
+	
+	public int getParcelas(Users _user) {
+        Plans planUser = em.find(Plans.class, _user.getUserid());
+        return planUser.getRemainingInstallments();
+ 
+	}
+	
+	 public void cancelPlan(Users _user) {
+	      Plans planUser = em.find(Plans.class, _user.getUserid());
+	      UsersController usersControllerToGetBalance = new UsersController();
+	      float valueBalance = usersControllerToGetBalance.getBalance(_user);
+	      
+	      System.out.println("Sua conta vai ser cancelada");
+	      float yourValueToWithdrawIs = (valueBalance/100)*20;
+	      System.out.println(yourValueToWithdrawIs);
+	     
+	  }
 	
 }
 

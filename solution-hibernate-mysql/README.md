@@ -90,4 +90,12 @@ CREATE TABLE IF NOT EXISTS AccountController(
 ```
 
 
+O sistema permite inserir usuários e associar os usuários a um plano de previdência, os usuários podem
+realizar pagamento, consultar saldo em conta, realizar saque do valor dado as regras de negócio e também 
+os usuários podem cancelar a conta.
+
+
+
+
+
 
