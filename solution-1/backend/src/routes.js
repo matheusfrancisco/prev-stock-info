@@ -14,10 +14,12 @@ routes.post('/joinAtPlan', PlanController.joinAtPlan);
 //Plans Routes
 
 routes.post('/createPlan', PlanController.createPlan);
+routes.post('/cancelPlan', PlanController.cancelPlan);
 
 // AccountController
 
 routes.post('/makePayment', AccountController.makePayment);
 routes.post('/withdrawBalance', AccountController.withdrawBalance);
+
 
 module.exports = routes;

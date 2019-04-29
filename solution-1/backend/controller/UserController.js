@@ -77,6 +77,21 @@ class UserController{
             db.query('UPDATE Users SET balance = ? WHERE id = ?', [newValue, user['id']], (err, res) =>{
                 if(err) throw err;
             });
+    }
+
+    updateBalanceWithdraw(user){
+        console.log(user)
+        db.query('UPDATE Users SET balance = ? WHERE id = ?',[0, user.getUserId()], (err,res)=>{
+            if(err) throw err;
+
+        });
+    }
+
+    updateBalanceWithdrawCancel(value, user){
+        db.query('UPDATE Users SET balance = ? WHERE id = ?',[user.getBalance() - value, user.getUserId()], (err,res)=>{
+            if(err) throw err;
+
+        });
 
     }
 
