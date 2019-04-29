@@ -20,7 +20,7 @@ class AccountController{
                 userJson[userFields.substring(1)] = user[userFields];
             });
 
-            console.log(userJson, 'user');
+                console.log(userJson, 'user');
 
 
             await UserController.updateBalance(userJson, req.body['pay_value']);
@@ -40,11 +40,20 @@ class AccountController{
         let plan = Plan;
         plan = await PlanController.findPlanByUserId(user.getUserId());
 
-        console.log(plan)
-        console.log('eita')
+        console.log(plan.getRemainingInstallments());
         console.log(user.getBalance());
+        //verificacoes
 
+        if(plan.getRemainingInstallments() > 0){
+            res.send('Falta parcelas');
+        }else{
+            await UserController.updateBalanceWithdraw(user);
+            res.send('Saque concluido');
+        }
+    }
 
+    async withdrawCancelPlan(value, user){
+        await UserController.updateBalanceWithdrawCancel(value, user);
     }
 }
 
