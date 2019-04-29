@@ -45,24 +45,60 @@ class PlanController{
     }
 
     findPlanById(planId){
-        let columns = ['remainingInstallments', 'numberOfInstallments','monthsGracePeriod', 'value_plan',
+        let columns = ['id','remainingInstallments', 'numberOfInstallments','monthsOfGracePeriod', 'value_plan',
                        'id_user', 'paymentAmount'];
-        let Plan = Plan;
-        db.query('SELECT Plan FROM ?? Where id = ?', [columns, planId], (err, res)=>{
 
-            console.log('Plan select', res);
+        return new Promise((resolve, reject) =>{
+        let loadPlan = Plan;
+
+        console.log('my id', planId)
+            db.query('SELECT ??  FROM ?? Where id = ?', [columns, 'Plans' ,planId], (err, res)=>{
+                if(err) throw err;
+
+                let resultPlanToString = JSON.stringify(res);
+                let planJson = JSON.parse(resultPlanToString);
+
+                loadPlan.setIdPlan(planJson[0].id);
+                loadPlan.setRemainingInstallments(planJson[0].remainingInstallments);
+                loadPlan.setMonthsOfGracePeriod(planJson[0].monthsOfGracePeriod);
+                loadPlan.setNumberOfInstallments(planJson[0].numberOfInstallments);
+                loadPlan.setValuePlan(planJson[0].value_plan);
+                loadPlan.setUserId(planJson[0].id_user);
+                console.log('Plan select', loadPlan);
+                resolve(loadPlan)
+            });
         });
     }
 
-    updatePlanPaymentDate(planId){
+    async updatePlanPaymentDate(planId){
 
         let PlanControllerToFind = new PlanController();
-        PlanControllerToFind.findPlanById(planId);
+        let plan = Plan;
+        plan = await PlanControllerToFind.findPlanById(planId);
+        let value = plan.getRemainingInstallments();
 
-        /*db.query('UPDATE Plans SET remainingInstallments = ? WHERE id = ?',[value,planId], (err,res)=>{
+        let newValue = value -1;
+        console.log(newValue);
 
-        });*/
+        db.query('UPDATE Plans SET remainingInstallments = ? WHERE id = ?',[newValue,planId], (err,res)=>{
+            if(err) throw err;
 
+                console.log(res);
+        });
+    }
+
+    async findPlanByUserId(idUser){
+
+        return new Promise((resolve, reject)=>{
+            let plan = Plan;
+            db.query('SELECT *  FROM Plans Where id_user = ?', [idUser], (err, res)=>{
+                let resultString = JSON.stringify(res);
+                let planJson = JSON.parse(resultString);
+
+                console.log(planJson, 'estou n')
+                resolve(planJson);
+            })
+        })
     }
 
 
