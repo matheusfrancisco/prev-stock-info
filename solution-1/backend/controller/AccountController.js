@@ -1,6 +1,7 @@
 const UserController = require('./UserController');
 const User = require('../models/User');
 const PlanController = require('./PlanController');
+const Plan = require('../models/Plans');
 
 const db = require('../src/server');
 
@@ -11,25 +12,38 @@ class AccountController{
         db.query('INSERT INTO AccountController SET ?', req.body,async (err, res, fields)=>{
             if(err) throw err;
 
-                let user = User;
-                UserController.findUserById(req.body['id_user'], user).then(userResult =>{
+            let user = User;
+            await UserController.findUserById(req.body['id_user'], user)
+            let userJson ={};
 
-                    let userJson ={};
-                    Object.keys(userResult).forEach(userFields =>{
-                        userJson[userFields.substring(1)] = userResult[userFields];
+            Object.keys(user).forEach(userFields =>{
+                userJson[userFields.substring(1)] = user[userFields];
+            });
 
-                    });
-
-                    console.log(userJson);
-                    UserController.updateBalance(userJson, req.body['pay_value']);
-                    PlanController.updatePlanPaymentDate(req.body['id_plan']);
+            console.log(userJson, 'user');
 
 
-                });
+            await UserController.updateBalance(userJson, req.body['pay_value']);
+            await PlanController.updatePlanPaymentDate(req.body['id_plan'], res);
 
+            console.log('passou')
+            //res.send('Payment ok and updates');
 
-        })
-        console.log(req.body);
+        });
+        res.send('Payment and updates ok')
+    }
+
+    async withdrawBalance(req, res){
+
+        let user = User;
+        await UserController.findUser(req.body['cpf'], user);
+        let plan = Plan;
+        plan = await PlanController.findPlanByUserId(user.getUserId());
+
+        console.log(plan)
+        console.log('eita')
+        console.log(user.getBalance());
+
 
     }
 }
