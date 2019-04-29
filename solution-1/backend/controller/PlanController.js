@@ -2,6 +2,7 @@ const db = require('../src/server');
 const UserController = require('./UserController.js');
 const User = require('../models/User.js');
 const Plan = require('../models/Plans.js');
+const AccountController = require('./AccountController.js');
 
 class PlanController{
 
@@ -90,17 +91,38 @@ class PlanController{
     async findPlanByUserId(idUser){
 
         return new Promise((resolve, reject)=>{
-            let plan = Plan;
+            let loadPlan = Plan;
             db.query('SELECT *  FROM Plans Where id_user = ?', [idUser], (err, res)=>{
                 let resultString = JSON.stringify(res);
                 let planJson = JSON.parse(resultString);
 
-                console.log(planJson, 'estou n')
-                resolve(planJson);
+                loadPlan.setIdPlan(planJson[0].id);
+                loadPlan.setRemainingInstallments(planJson[0].remainingInstallments);
+                loadPlan.setMonthsOfGracePeriod(planJson[0].monthsOfGracePeriod);
+                loadPlan.setNumberOfInstallments(planJson[0].numberOfInstallments);
+                loadPlan.setValuePlan(planJson[0].value_plan);
+                loadPlan.setUserId(planJson[0].id_user);
+                resolve(loadPlan);
             })
         })
     }
 
+    async cancelPlan(req, res){
+        let user = User;
+        let plan = Plan;
+        let planByUserId = new PlanController();
+        await UserController.findUserById(req.body['id_user'], user);
+        plan = await planByUserId.findPlanByUserId(req.body['id_user']);
+
+        let valueBalance = user.getBalance();
+        if(plan.getRemainingInstallments() > 0){
+            let value = ((valueBalance*20)/100);
+            await AccountController.withdrawCancelPlan(value, user);
+            res.send(`voce cancelou sua conta e o saque foi ${value}`)
+        }
+
+
+    }
 
 }
 
