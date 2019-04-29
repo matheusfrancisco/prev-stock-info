@@ -32,6 +32,7 @@ class UserController{
             user.setEndereco(userJson[0].endereco);
             user.setEmail(userJson[0].email);
             user.setUserId(userJson[0].id);
+            user.setBalance(userJson[0].balance);
 
             resolve(user);
            });
@@ -75,7 +76,6 @@ class UserController{
         }
             db.query('UPDATE Users SET balance = ? WHERE id = ?', [newValue, user['id']], (err, res) =>{
                 if(err) throw err;
-                console.log(res['serverStatus'])
             });
 
     }
